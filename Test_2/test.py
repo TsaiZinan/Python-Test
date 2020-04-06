@@ -6,16 +6,15 @@ Created on Mon Apr  6 06:14:14 2020
 """
 
 import api
-import time
+
 import threading
 
-
-api_key = '6bfedf3b9581028b869530663295da5f'
-secret_key = 'c16f9979441643b220f54c1d0eafc4df'
-timestamp = str(int(time.time()))
-sign = api.get_sign (api_key, secret_key, timestamp)
+import concurrent.futures
 
 
+
+
+import time
 import random
 
 def test(option):
@@ -30,15 +29,12 @@ def test(option):
     print(mass)
 
 
-#api.get_allticker()
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    
 
-#api.test('BUY')
-
-#api.test('SELL')
-
-#threads= []
-t1 = threading.Thread(target=api.test, args=('BUY',1,))  
-t2 = threading.Thread(target=api.test, args=('SELL',2,))
+threads= []
+t1 = threading.Thread(target=test, args=('BUY',))  
+t2 = threading.Thread(target=test, args=('SELL',))
 
 t1.start() 
 t2.start()

@@ -9,6 +9,7 @@ import requests
 import json
 import time
 import hashlib
+import random
 
 
 
@@ -18,15 +19,15 @@ def get_function (url):
     result = json.loads(r.text)
     return result
 
-def get_sign (api_key, secret_key, time):
-    presign = "api_key" + api_key + "time" + time + secret_key
+def get_sign (api_key, secret_key, timestamp):
+    presign = "api_key" + api_key + "time" + timestamp + secret_key
     sign = hashlib.md5(presign.encode('utf-8')).hexdigest()
     return sign
 
 api_key = '6bfedf3b9581028b869530663295da5f'
 secret_key = 'c16f9979441643b220f54c1d0eafc4df'
-time = str(int(time.time()))
-sign = get_sign (api_key, secret_key, time)
+timestamp = str(int(time.time()))
+sign = get_sign (api_key, secret_key, timestamp)
 
 
 
@@ -45,21 +46,33 @@ def get_records(symbol, period):
     url = 'https://openapi.goko.com/open/api/get_records?symbol=' + symbol + '&period=' + period
     print(get_function(url))
     
-def get_account(api_key, time, sign):
-    url = 'https://openapi.goko.com/open/api/user/account?api_key=' + api_key + '&time=' + time + '&sign=' + sign
+def get_account(api_key, timestamp, sign):
+    url = 'https://openapi.goko.com/open/api/user/account?api_key=' + api_key + '&time=' + timestamp + '&sign=' + sign
     print(get_function(url))
 
-def mass_replace(api_key, time, sign, symbol, action, data):
+def mass_replace(api_key, timestamp, sign, symbol, action, data):
         
     if action == 'BUY':
         mass = '&mass_place='
     elif action == 'SELL':
         mass = '&mass_cancel='
         
-    url = 'https://openapi.goko.com/open/api/mass_replace?api_key=' + api_key + '&time=' + time + '&sign=' + sign + mass + data
+    url = 'https://openapi.goko.com/open/api/mass_replace?api_key=' + api_key + '&time=' + timestamp + '&sign=' + sign + mass + data
     
     print(get_function(url))
     
+def test(option, sec):
+    if option == 'BUY':
+        mass = 'buy_success'
+    elif option == 'SELL':
+        mass = 'sell_success'
+        
+    timerad = random.randint(4,10)
+    time.sleep(timerad)
+    print(timerad)
+    print(mass + str(sec))
+    
+
     
 #get_allticker()
 
