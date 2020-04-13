@@ -32,18 +32,25 @@ def test(option):
 
 #api.get_allticker()
 
-#api.test('BUY')
-
-#api.test('SELL')
-
-#threads= []
-t1 = threading.Thread(target=api.test, args=('BUY',1,))  
-t2 = threading.Thread(target=api.test, args=('SELL',2,))
-
-t1.start() 
-t2.start()
-
-t1.join()
-t2.join()
 
 
+#t1 = threading.Thread(target=api.test, args=('BUY',1,))  
+#t2 = threading.Thread(target=api.test, args=('SELL',2,))
+
+#t1.start() 
+#t2.start()
+
+#t1.join()
+#t2.join()
+
+
+#api.mass_replace(api_key, timestamp, sign, 'gsb', [{side:"BUY",type:"1",volume:"1",price:"0.001",fee_is_user_exchange_coin:"0"}])
+
+#api.get_account(api_key, timestamp, sign)
+
+#api.all_order('gsb', api_key, timestamp, sign)
+
+api.mass_test(api_key, timestamp, sign, 'gsb')
+    
+symbol = 'gsb'
+#api.all_trade('gsb', api_key, timestamp, sign)
