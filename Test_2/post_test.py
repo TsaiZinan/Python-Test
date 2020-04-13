@@ -20,7 +20,8 @@ def get_function (url):
     return result
 
 def post_function (url, p):
-    r=requests.post(url, data=p)
+    headers = {"Content-Type":"application/json"}
+    r=requests.post(url, data=p, headers=headers)
     result = json.loads(r.text)
     return result
 
@@ -53,19 +54,18 @@ def mass_test(api_key, timestamp, sign, symbol):
 def create_order(side, type, volume, price, symbol, api_key, timestamp, sign):
     url = 'https://openapi.goko.com/open/api/create_order'
     p={}
+    p["api_key"]=api_key
+    p["price"]=price
     p["side"]=side
+    p["symbol"]=symbol
+    p["time"]=timestamp
     p["type"]=type
     p["volume"]=volume
-    p["price"]=price
-    p["symbol"]=symbol
-    p["api_key"]=api_key
-    p["time"]=timestamp
     p["sign"]=sign
-    
     print(p)
     print(post_function(url, p))
     
 
-create_order("BUY", 1, 1, 0.000002, 'gsb', api_key, timestamp, sign)
+create_order("BUY", 1, 1, '0.000002', 'gsbusdt', api_key, timestamp, sign)
 
 #mass_test(api_key, timestamp, sign, 'gsb')
