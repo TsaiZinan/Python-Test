@@ -20,11 +20,13 @@ def get_function (url):
     result = json.loads(r.text)
     return result
 
-def post_function (url, p):
-    headers = {"Content-Type":"application/json"}
-    r=requests.post(url, data=p, headers=headers)
+def post_function (url, p, sign):
+    #headers = {"Content-Type":"application/json"}
+    headers = {"ACCESS-KEY": api_key, "ACCESS-SIGN": sign, "ACCESS-TIMESTAMP": timestamp,
+              "Content-Type": "application/json"}
+    r=requests.post(url, params=p, headers=headers)
     result = json.loads(r.text)
-    return result
+    return result, headers
 
 
 def get_sign (key_value):
@@ -32,6 +34,7 @@ def get_sign (key_value):
     translation_table = dict.fromkeys(map(ord, "(,[' ])"), None)
     keyvalue_str = str(order).translate(translation_table)
     presign = "api_key" + api_key + keyvalue_str + secret_key
+    print(presign)
     sign = hashlib.md5(presign.encode('utf-8')).hexdigest()
     return sign
 
@@ -78,7 +81,7 @@ def create_order(side, type, volume, price, symbol):
     p = json.dumps(p)
     
     print(p)
-    print(post_function(url, p))
+    print(post_function(url, p, sign))
     
 
 create_order("BUY", 1, 1, '0.000002', 'gsbusdt')
