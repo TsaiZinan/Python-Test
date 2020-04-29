@@ -46,11 +46,11 @@ def test(option):
 
 #api.mass_replace(api_key, timestamp, sign, 'gsb', [{side:"BUY",type:"1",volume:"1",price:"0.001",fee_is_user_exchange_coin:"0"}])
 
-#api.get_account(api_key, timestamp, sign)
+api.get_account(api_key, timestamp, sign)
 
 #api.all_order('gsb', api_key, timestamp, sign)
 
-api.mass_test(api_key, timestamp, sign, 'gsb')
+#api.mass_test(api_key, timestamp, sign, 'gsb')
     
 symbol = 'gsb'
 #api.all_trade('gsb', api_key, timestamp, sign)

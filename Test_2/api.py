@@ -35,31 +35,36 @@ sign = get_sign (api_key, secret_key, timestamp)
 
 
 def get_allticker():
-    url = 'https://openapi.goko.com/open/api/get_allticker'
+    url = 'https://openapi.goko.vip/open/api/get_allticker'
     print(get_function(url))
 
 def get_ticker(symbol):
-    url = 'https://openapi.goko.com/open/api/get_ticker?symbol=' + symbol
+    url = 'https://openapi.goko.vip/open/api/get_ticker?symbol=' + symbol
     print(get_function(url))
 
 def get_records(symbol, period):
-    url = 'https://openapi.goko.com/open/api/get_records?symbol=' + symbol + '&period=' + period
+    url = 'https://openapi.goko.vip/open/api/get_records?symbol=' + symbol + '&period=' + period
     print(get_function(url))
     
 def all_order(symbol, api_key, timestamp, sign):
-    url = 'https://openapi.goko.com/open/api/user/account?symbol=' + symbol + '&api_key=' + api_key + '&time=' + timestamp + '&sign=' + sign
+    secret_key = 'c16f9979441643b220f54c1d0eafc4df'
+    newsign = 'api_key' + api_key + 'symbol' + symbol + 'time' + timestamp + secret_key
+    newsign = hashlib.md5(newsign.encode('utf-8')).hexdigest()
+    url = 'https://openapi.goko.vip/open/api/v2/all_order?symbol=' + symbol + '&api_key=' + api_key + '&time=' + timestamp + '&sign=' + newsign
+    print(url)
     print(get_function(url))
     
 def get_account(api_key, timestamp, sign):
-    url = 'https://openapi.goko.com/open/api/user/account?api_key=' + api_key + '&time=' + timestamp + '&sign=' + sign
+    url = 'https://openapi.goko.vip/open/api/user/account?api_key=' + api_key + '&time=' + timestamp + '&sign=' + sign
+    print(url)
     print(get_function(url))
 
 def get_market(api_key, timestamp, sign):
-    url = 'https://openapi.goko.com/open/api/market?api_key=' + api_key + '&time=' + timestamp + '&sign=' + sign
+    url = 'https://openapi.goko.vip/open/api/market?api_key=' + api_key + '&time=' + timestamp + '&sign=' + sign
     print(get_function(url))
 
 def all_trade(symbol, api_key, timestamp, sign):
-    url = 'https://openapi.goko.com/open/api/all_trade?symbol=' + symbol + '&api_key=' + api_key + '&time=' + timestamp + '&sign=' + sign
+    url = 'https://openapi.goko.vip/open/api/all_trade?symbol=' + symbol + '&api_key=' + api_key + '&time=' + timestamp + '&sign=' + sign
     print(url)
     print(get_function(url))
 
@@ -70,12 +75,12 @@ def mass_replace(api_key, timestamp, sign, symbol, action, data):
     elif action == 'SELL':
         mass = '&mass_cancel='
         
-    url = 'https://openapi.goko.com/open/api/mass_replace?api_key=' + api_key + '&time=' + timestamp + '&sign=' + sign + mass + data
+    url = 'https://openapi.goko.vip/open/api/mass_replace?api_key=' + api_key + '&time=' + timestamp + '&sign=' + sign + mass + data
     
     print(get_function(url))
 
 def mass_test(api_key, timestamp, sign, symbol):
-    url = 'https://openapi.goko.com/open/api/mass_replace?api_key=' + api_key + '&time=' + timestamp + '&sign=' + sign + '&symbol=GSB' + '&mass_place=[{side:"BUY",type:"1",volume:"1",price:"0.000002",fee_is_user_exchange_coin:"0"}]'
+    url = 'https://openapi.goko.vip/open/api/mass_replace?api_key=' + api_key + '&time=' + timestamp + '&sign=' + sign + '&symbol=GSB' + '&mass_place=[{side:"BUY",type:"1",volume:"1",price:"0.000002",fee_is_user_exchange_coin:"0"}]'
     print(url)
     print(get_function(url))
 

@@ -52,7 +52,7 @@ def mass_test(api_key, timestamp, sign, symbol):
     
     
 def create_order(side, type, volume, price, symbol, api_key, timestamp, sign):
-    url = 'https://openapi.goko.com/open/api/create_order'
+    url = 'https://openapi.goko.vip/open/api/create_order'
     p={}
     p["api_key"]=api_key
     p["price"]=price
